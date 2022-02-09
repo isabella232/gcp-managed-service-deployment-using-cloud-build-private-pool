@@ -1,0 +1,14 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        gcloud container clusters get-credentials ${cluster_name} --project ${project_id} --zone ${cluster_location}
+
+        context_name=$(kubectl config current-context)
+        kubectl config set clusters.$context_name.proxy-url socks5://${proxy_ip_address}:1080
+
+        kubectl get nodes
+options:
+  workerPool: ${worker_pool_id}

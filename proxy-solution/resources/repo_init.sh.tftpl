@@ -1,0 +1,15 @@
+#! /bin/bash
+
+echo "Initializing source repo with a cloudbuild.yaml file.."
+echo "  Source repo: ${project_id}/${repo_name}"
+
+gcloud source repos clone ${repo_name} --project=${project_id}
+
+cp cloudbuild.yaml ${repo_name}/
+
+cd ${repo_name}
+
+git add cloudbuild.yaml
+git commit -m "Added cloudbuild.yaml"
+
+git push

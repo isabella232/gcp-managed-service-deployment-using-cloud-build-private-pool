@@ -1,0 +1,14 @@
+#! /bin/bash
+
+echo "Triggering a build by pushing a change"
+echo "  Source repo: ${project_id}/${repo_name}"
+
+cd ${repo_name}
+
+echo $RANDOM > random.txt
+git add random.txt
+git commit -m "Added random change.."
+
+git push
+
+echo "Watch your running build at https://console.cloud.google.com/cloud-build/builds;region=${worker_pool_location}?project=${project_id}"
